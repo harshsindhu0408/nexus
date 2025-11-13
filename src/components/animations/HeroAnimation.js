@@ -50,38 +50,48 @@ const HeroAnimation = () => {
     scene.add(group);
     threeObjects.current.group = group;
 
+    // Enhanced geometries with more e-commerce inspired shapes
     const panelGeom = new THREE.BoxGeometry(1, 0.6, 0.05);
     const smallPanelGeom = new THREE.BoxGeometry(0.4, 0.4, 0.05);
     const barGeom = new THREE.BoxGeometry(0.8, 0.1, 0.05);
-    const geometries = [panelGeom, smallPanelGeom, barGeom];
+    const circleGeom = new THREE.CircleGeometry(0.3, 32);
+    const tagGeom = new THREE.PlaneGeometry(0.5, 0.3);
+    const geometries = [panelGeom, smallPanelGeom, barGeom, circleGeom, tagGeom];
 
     const indigoMat = new THREE.MeshStandardMaterial({
       color: 0x6366f1,
       emissive: 0x6366f1,
-      emissiveIntensity: 0.3,
-      roughness: 0.3,
-      metalness: 0.1,
+      emissiveIntensity: 0.4,
+      roughness: 0.2,
+      metalness: 0.2,
     });
     const purpleMat = new THREE.MeshStandardMaterial({
       color: 0x8b5cf6,
       emissive: 0x8b5cf6,
-      emissiveIntensity: 0.3,
-      roughness: 0.3,
-      metalness: 0.1,
+      emissiveIntensity: 0.4,
+      roughness: 0.2,
+      metalness: 0.2,
     });
     const pinkMat = new THREE.MeshStandardMaterial({
       color: 0xec4899,
       emissive: 0xec4899,
+      emissiveIntensity: 0.4,
+      roughness: 0.2,
+      metalness: 0.2,
+    });
+    const emeraldMat = new THREE.MeshStandardMaterial({
+      color: 0x10b981,
+      emissive: 0x10b981,
       emissiveIntensity: 0.3,
       roughness: 0.3,
       metalness: 0.1,
     });
-    const materials = [indigoMat, purpleMat, pinkMat];
+    const materials = [indigoMat, purpleMat, pinkMat, emeraldMat];
 
     const objects = [];
     threeObjects.current.objects = objects;
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       const geom = geometries[Math.floor(Math.random() * geometries.length)];
       const mat = materials[Math.floor(Math.random() * materials.length)];
 
@@ -89,7 +99,7 @@ const HeroAnimation = () => {
 
       const phi = Math.random() * Math.PI * 2;
       const theta = Math.acos(2 * Math.random() - 1);
-      const radius = 2 + Math.random() * 4;
+      const radius = 2 + Math.random() * 6;
 
       mesh.position.set(
         radius * Math.cos(phi) * Math.sin(theta),
@@ -103,21 +113,31 @@ const HeroAnimation = () => {
         Math.random() * Math.PI
       );
 
+      // Scale variation for visual interest
+      const scale = 0.8 + Math.random() * 0.4;
+      mesh.scale.set(scale, scale, scale);
+
       group.add(mesh);
 
       objects.push({
         mesh: mesh,
         initialY: mesh.position.y,
+        initialScale: scale,
         randomOffset: Math.random() * 2 * Math.PI,
+        speed: 0.3 + Math.random() * 0.4,
       });
     }
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0xffffff, 1.0);
+    const pointLight = new THREE.PointLight(0xffffff, 1.2);
     pointLight.position.set(5, 10, 5);
     scene.add(pointLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(-5, 5, 5);
+    scene.add(directionalLight);
 
     const onWindowResize = () => {
       if (!containerRef.current || !threeObjects.current.renderer) return;
@@ -144,21 +164,33 @@ const HeroAnimation = () => {
 
       const elapsedTime = threeObjects.current.clock.getElapsedTime();
 
-      const targetX = mouse.current.x * 0.1;
-      const targetY = -mouse.current.y * 0.1;
+      const targetX = mouse.current.x * 0.2;
+      const targetY = -mouse.current.y * 0.2;
 
       if (threeObjects.current.group) {
         threeObjects.current.group.rotation.y +=
-          (targetX - threeObjects.current.group.rotation.y) * 0.05;
+          (targetX - threeObjects.current.group.rotation.y) * 0.03;
         threeObjects.current.group.rotation.x +=
-          (targetY - threeObjects.current.group.rotation.x) * 0.05;
+          (targetY - threeObjects.current.group.rotation.x) * 0.03;
+        
+        // Gentle floating animation for the entire group
+        threeObjects.current.group.position.y = Math.sin(elapsedTime * 0.2) * 0.1;
       }
 
       threeObjects.current.objects.forEach((obj) => {
         obj.mesh.position.y =
-          obj.initialY + Math.sin(elapsedTime * 0.5 + obj.randomOffset) * 0.2;
-        obj.mesh.rotation.x += 0.001;
-        obj.mesh.rotation.y += 0.002;
+          obj.initialY + Math.sin(elapsedTime * obj.speed + obj.randomOffset) * 0.3;
+        obj.mesh.rotation.x += 0.001 * obj.speed;
+        obj.mesh.rotation.y += 0.002 * obj.speed;
+        obj.mesh.rotation.z += 0.001 * obj.speed;
+        
+        // Pulsing scale animation
+        const pulse = Math.sin(elapsedTime * obj.speed + obj.randomOffset) * 0.1;
+        obj.mesh.scale.set(
+          obj.initialScale + pulse,
+          obj.initialScale + pulse,
+          obj.initialScale + pulse
+        );
       });
 
       if (threeObjects.current.renderer) {
@@ -185,13 +217,32 @@ const HeroAnimation = () => {
       ref={containerRef}
       className="absolute top-0 left-0 w-full h-full overflow-hidden [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"
     >
+      {/* Enhanced gradient orbs with smoother animations */}
       <div
-        className="absolute -top-1/4 -left-1/4 w-full h-full bg-indigo-500/30 dark:bg-indigo-500/20 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "6s" }}
+        className="absolute -top-1/4 -left-1/4 w-full h-full bg-indigo-500/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-float"
+        style={{ 
+          animationDuration: "15s",
+          animationTimingFunction: "ease-in-out",
+          animationIterationCount: "infinite"
+        }}
       />
       <div
-        className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 bg-purple-500/30 dark:bg-purple-500/20 rounded-full blur-3xl animate-pulse"
-        style={{ animationDelay: "2s", animationDuration: "7s" }}
+        className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-3xl animate-float"
+        style={{ 
+          animationDuration: "18s",
+          animationDelay: "3s",
+          animationTimingFunction: "ease-in-out",
+          animationIterationCount: "infinite"
+        }}
+      />
+      <div
+        className="absolute top-1/2 left-1/3 w-1/2 h-1/2 bg-pink-500/15 dark:bg-pink-500/10 rounded-full blur-3xl animate-float"
+        style={{ 
+          animationDuration: "20s",
+          animationDelay: "6s",
+          animationTimingFunction: "ease-in-out",
+          animationIterationCount: "infinite"
+        }}
       />
 
       <canvas ref={canvasRef} className="w-full h-full" />
