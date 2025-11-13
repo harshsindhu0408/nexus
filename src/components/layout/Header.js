@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useTheme } from "./ThemeProvider";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -102,12 +103,23 @@ const Header = () => {
               Sign In
             </a>
 
-            <a
-              href="#contact"
-              className="relative inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all duration-300"
-            >
-              Book a Demo
-            </a>
+            <motion.a
+                href="#contact"
+                className="relative inline-flex items-center px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-500 overflow-hidden group"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {/* Animated gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 group-hover:from-indigo-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500" />
+                
+                {/* Shine effect */}
+                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                
+                {/* Glow effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-1000 group-hover:duration-200" />
+                
+                <span className="relative z-10">Book a Demo</span>
+              </motion.a>
           </div>
         </div>
       </nav>
