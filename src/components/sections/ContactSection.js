@@ -1,50 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FadeIn from "../ui/FadeIn";
+import {
+  ArrowRight,
+  CheckCircle,
+  Star,
+  Zap,
+  TrendingUp,
+  Shield,
+} from "lucide-react";
 
-const ContactSection = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-  };
-
+const ContactSection = ({ id }) => {
   return (
     <section
-      id="contact"
-      className="py-20 md:py-32 bg-gray-50 dark:bg-gray-950"
+      id={id}
+      className="relative py-24 md:py-32 bg-gray-50 dark:bg-gray-950 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+      {/* Background Decoration */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-indigo-500/5 blur-3xl"></div>
+        <div className="absolute bottom-[10%] right-[5%] w-[40%] h-[40%] rounded-full bg-purple-500/5 blur-3xl"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left Column: Visionary Copy & Social Proof */}
           <div>
             <FadeIn>
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-gray-900 dark:text-white">
-                Let's build the{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                  next big thing
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6">
+                <Zap className="w-3 h-3 fill-current" />
+                <span>The New Standard</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-gray-900 dark:text-white leading-[1.1]">
+                Ignite your <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
+                  digital evolution
                 </span>
-                , together.
+                .
               </h2>
-              <p className="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                Whether you're migrating an existing enterprise or starting from
-                scratch, our team is ready to help. Book a demo to see Nexus in
-                action.
+              <p className="mt-6 text-lg md:text-xl leading-relaxed text-gray-600 dark:text-gray-400 max-w-lg">
+                Stop reacting to the market—start defining it. Partner with us
+                to architect a scalable ecosystem that turns complexity into
+                your ultimate competitive advantage.
               </p>
             </FadeIn>
-            <FadeIn delay={100}>
-              <div className="mt-10 p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-                <blockquote className="text-lg text-gray-700 dark:text-gray-300">
-                  "Nexus completely transformed how we think about e-commerce.
-                  The speed and flexibility are unmatched."
+
+            <FadeIn delay={200}>
+              <div className="mt-12 p-8 rounded-3xl bg-white/60 dark:bg-gray-900/60 backdrop-blur-md border border-gray-200 dark:border-gray-800 shadow-xl shadow-indigo-500/5">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
+                </div>
+                <blockquote className="text-xl font-medium text-gray-900 dark:text-gray-100 leading-relaxed italic">
+                  &quot;We didn&apos;t just get new software; we gained a
+                  strategic clarity that accelerated our roadmap by two years.
+                  The ROI was immediate.&quot;
                 </blockquote>
-                <div className="mt-4 flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-gray-300 dark:bg-gray-700 flex-shrink-0"></div>
+                <div className="mt-6 flex items-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center text-xs font-bold text-indigo-600 dark:text-gray-300 ring-2 ring-white dark:ring-gray-800 shadow-sm">
+                    MC
+                  </div>
                   <div className="ml-4">
                     <p className="font-bold text-gray-900 dark:text-white">
-                      Jane Doe
+                      Marcus Chen
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      CTO, Quantum
+                    <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                      VP of Innovation, Globex Enterprise
                     </p>
                   </div>
                 </div>
@@ -52,90 +76,65 @@ const ContactSection = () => {
             </FadeIn>
           </div>
 
-          <FadeIn>
-            <div className="p-8 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg">
-              {isSubmitted ? (
-                <div className="text-center p-8">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                    Thank You!
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    We've received your request and will be in touch soon.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      className="mt-1 block w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Work Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      className="mt-1 block w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      className="mt-1 block w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      className="mt-1 block w-full px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white"
-                      placeholder="How can we help?"
-                    ></textarea>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full relative inline-flex items-center justify-center px-6 py-3 rounded-lg text-lg font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all duration-300"
-                    >
-                      Book Your Demo
-                    </button>
-                  </div>
-                </form>
-              )}
+{/* Right Column: Premium Feature Spotlight Card (No Form) */}
+<FadeIn delay={100}>
+  <div className="relative group">
+    {/* Abstract Glow Behind Card */}
+    <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+
+    <div className="relative p-8 md:p-12 bg-white dark:bg-gray-900 rounded-[1.75rem] border border-gray-100 dark:border-gray-800 shadow-2xl leading-none overflow-hidden">
+      {/* Decorative top-right orb */}
+      <div className="absolute top-0 right-0 -mr-12 -mt-12 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="relative z-10">
+        <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+          Launch Your Store With a Future-Ready Ecommerce Platform
+        </h3>
+
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 leading-relaxed">
+          Build, manage, and grow your online store with a platform designed 
+          for performance, scalability, and modern retail needs. No complexity —
+          just clean, powerful tools built for serious ecommerce brands.
+        </p>
+
+        {/* Value Props List */}
+        <div className="space-y-5 mb-10">
+          {[
+            { icon: TrendingUp, text: "Advanced Sales & Conversion Insights" },
+            { icon: Shield, text: "Secure & Reliable Store Infrastructure" },
+            { icon: Zap, text: "Fast Setup With Scalable Architecture" },
+          ].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-4">
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                <item.icon className="w-5 h-5" />
+              </div>
+              <span className="font-semibold text-gray-700 dark:text-gray-200">
+                {item.text}
+              </span>
             </div>
-          </FadeIn>
+          ))}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={() =>
+              window.open(
+                "https://calendly.com/harshsindhupvt/30min",
+                "_blank"
+              )
+            }
+            className="flex-1 group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-white bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 transform hover:-translate-y-1"
+          >
+            Schedule a Product Demo
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</FadeIn>
+
         </div>
       </div>
     </section>

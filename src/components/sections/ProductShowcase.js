@@ -384,7 +384,7 @@ const MockAnalytics = () => (
 
 // --- Main Component ---
 
-const ProductShowcase = () => {
+const ProductShowcase = ({id}) => {
   const [activeStep, setActiveStep] = useState("admin");
   const containerRef = useRef(null);
 
@@ -452,7 +452,7 @@ const ProductShowcase = () => {
   };
 
   return (
-    <section className="pt-32 bg-white dark:bg-black relative">
+    <section id={id} className="pt-32 bg-white dark:bg-black relative">
       {/* Scroll Progress Indicator */}
       <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 h-1/3 max-h-64 w-1 hidden md:block z-10">
         <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">

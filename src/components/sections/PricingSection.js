@@ -25,6 +25,8 @@ import {
   Target,
   CheckCircle,
   Zap,
+  ArrowRight,
+  Shield,
 } from "lucide-react";
 
 import Particles from "@tsparticles/react";
@@ -210,7 +212,6 @@ const ValueCard = ({ icon: Icon, title, description }) => {
   );
 };
 
-
 //=================================================================
 // 5. Helper Component: Success Checkmark Animation
 //=================================================================
@@ -262,23 +263,6 @@ const LoaderIcon = ({ className = "" }) => (
     className={`lucide lucide-loader-circle ${className}`}
   >
     <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-  </svg>
-);
-
-const StarIcon = ({ className = "" }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={`lucide lucide-star ${className}`}
-  >
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
   </svg>
 );
 
@@ -362,10 +346,11 @@ const WaitlistForm = () => {
               transition={{ duration: 0.2 }}
             >
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-center mb-2">
-                Join the Waitlist
+                Get Priority Access
               </h2>
               <p className="text-gray-600 dark:text-gray-300 text-center mb-8">
-                Secure your early access. Limited spots available.
+                Join our first batch of e-commerce brands and unlock exclusive
+                early benefits.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -551,7 +536,7 @@ const WaitlistForm = () => {
                   {/* --- Replaces `AnimatedCTA` --- */}
                   <motion.button
                     type="submit"
-                    className="w-full flex items-center justify-center px-6 py-4 rounded-lg text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                    className="w-full flex-1 group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold text-white bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 transform hover:-translate-y-1"
                     disabled={isSubmitting}
                     whileHover={{
                       scale: isSubmitting ? 1 : 1.03,
@@ -584,138 +569,94 @@ const InsightsSection = () => {
   const insights = [
     {
       icon: Crown,
-      title: "Exclusive Features",
-      description:
-        "Access to beta features and direct influence on product development",
-      color: "from-purple-500 to-pink-600",
+      title: "Premium Early Access",
+      description: "Get exclusive first-look at revolutionary features and directly shape our product roadmap with your feedback",
+      gradient: "from-amber-500 to-orange-600",
+      stat: "30+",
+      statText: "beta features",
+      badge: "Exclusive"
     },
     {
       icon: Users,
-      title: "Join 2,500+ Businesses",
-      description: "Be part of our growing community of innovative retailers",
-      color: "from-green-500 to-teal-600",
+      title: "Elite Business Network",
+      description: "Connect with 3,200+ industry leaders and innovative retailers in our curated community for strategic partnerships",
+      gradient: "from-emerald-600 to-teal-700",
+      stat: "3.2K+",
+      statText: "businesses",
+      badge: "Growing"
     },
     {
-      icon: TrendingUp,
-      title: "Boost Your Sales",
-      description:
-        "Early users see average revenue growth of 35% in first 3 months",
-      color: "from-orange-500 to-red-600",
+      icon: Shield,
+      title: "Enterprise-Grade Security",
+      description: "Protect your sensitive data with military-grade encryption and compliance frameworks trusted by Fortune 500 companies",
+      gradient: "from-slate-700 to-gray-900",
+      stat: "99.9%",
+      statText: "uptime SLA",
+      badge: "Secure"
     },
-  ];
-
-  const stats = [
-    { number: "2.5K+", label: "Waitlist Members", icon: Target },
-    { number: "89%", label: "Conversion Rate", icon: CheckCircle },
-    { number: "24h", label: "Early Response Time", icon: Clock },
+    {
+      icon: Star,
+      title: "Dedicated Success Team",
+      description: "Receive personalized guidance and strategic support from our expert team dedicated to maximizing your business outcomes",
+      gradient: "from-violet-600 to-indigo-700",
+      stat: "24/7",
+      statText: "premium support",
+      badge: "Priority"
+    }
   ];
 
   return (
     <div className="w-full h-full">
       <div className="sticky top-24 space-y-8">
-        {/* Main Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center lg:text-left"
-        >
-          <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-            <div className="p-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
-              <Zap className="w-6 h-6 text-white" />
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Why Join Early?
-            </h2>
-          </div>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Be among the first to transform your e-commerce business
-          </p>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-3 gap-4"
-        >
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            return (
-              <div
-                key={index}
-                className="text-center cursor-pointer p-4 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <div className="flex justify-center mb-2">
-                  <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg">
-                    <IconComponent className="w-4 h-4 text-white" />
-                  </div>
-                </div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            );
-          })}
-        </motion.div>
 
         {/* Insights Grid */}
-        <div className="space-y-6">
+        <div className="grid gap-6">
           {insights.map((insight, index) => {
             const IconComponent = insight.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group cursor-pointer"
               >
-                <div className="flex cursor-pointer items-start space-x-4 p-6 rounded-2xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-                  {/* Icon with gradient background */}
+                <div className="relative p-6 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-all duration-300 group-hover:border-transparent">
+                  {/* Subtle gradient border on hover */}
                   <div
-                    className={`flex-shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-r ${insight.color} flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <IconComponent className="w-6 h-6 text-white" />
-                  </div>
+                    className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${insight.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+                  ></div>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                      {insight.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {insight.description}
-                    </p>
+                  <div className="relative flex items-start space-x-4">
+                    {/* Icon */}
+                    <div
+                      className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r ${insight.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-300`}
+                    >
+                      <IconComponent className="w-6 h-6 text-white" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+                        {insight.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {insight.description}
+                      </p>
+                    </div>
+
+                    {/* Hover indicator */}
+                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div
+                        className={`w-2 h-2 rounded-full bg-gradient-to-r ${insight.gradient}`}
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* CTA Card for Mobile */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="lg:hidden mt-8"
-        >
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 text-center text-white shadow-2xl">
-            <div className="flex justify-center mb-3">
-              <Crown className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Ready to Get Started?</h3>
-            <p className="opacity-90 mb-4">
-              Join the waitlist now and secure your spot
-            </p>
-            <div className="text-2xl font-bold">Limited Spots Available</div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );
@@ -725,7 +666,7 @@ const InsightsSection = () => {
 // 7. Main Component: The Waitlist Section
 //=================================================================
 
-const WaitlistSection = () => {
+const WaitlistSection = ({ id }) => {
   const valueProps = useMemo(
     () => [
       {
@@ -766,7 +707,7 @@ const WaitlistSection = () => {
   );
   return (
     <section
-      id="waitlist"
+      id={id}
       className="relative w-full py-24 md:py-32 overflow-hidden bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300"
     >
       {/* Animated Particle Background */}
@@ -777,16 +718,18 @@ const WaitlistSection = () => {
           {/* 1. Headline Block */}
           <FadeIn>
             <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter">
-              Get Early Access to the
+              Your Growth Engine is Ready.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-                Future of Online Business
+                Start Scaling Your Business Today
               </span>
             </h2>
             <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300">
-              Join our exclusive waitlist to secure your spot.
+              Our platform is now live — built to help ambitious businesses
+              boost conversions, automate operations, and drive predictable
+              growth.
               <br className="hidden md:block" />
-              Starter packs begin at just{" "}
+              Plans start at{" "}
               <span className="font-bold text-gray-900 dark:text-white">
                 ₹29,999
               </span>
@@ -799,7 +742,7 @@ const WaitlistSection = () => {
             <div className="mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
               <div className="flex items-center gap-2 text-sm font-medium bg-white dark:bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-gray-200 dark:border-white/10 shadow-sm">
                 <span>🔥</span>
-                <AnimatedCounter to={500} />
+                <AnimatedCounter to={10} />
                 <span className="text-gray-600 dark:text-gray-300">
                   + entrepreneurs already joined!
                 </span>
@@ -807,8 +750,9 @@ const WaitlistSection = () => {
               <div className="hidden md:block h-4 w-px bg-gray-300 dark:bg-white/10"></div>
               <div className="flex items-center gap-2 text-sm font-medium bg-white dark:bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-gray-200 dark:border-white/10 shadow-sm">
                 <span className="text-gray-600 dark:text-gray-300">
-                  Limited slots available before launch
+                  Accepting a limited number of new clients this month
                 </span>
+
                 <span>✨</span>
               </div>
             </div>

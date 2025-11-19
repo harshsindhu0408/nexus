@@ -27,9 +27,12 @@ const itemVariants = {
   },
 };
 
-const EnhancedHeroSection = () => {
+const EnhancedHeroSection = ({ id }) => {
   return (
-    <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden text-center">
+    <section
+      id={id}
+      className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden text-center"
+    >
       {/* Your existing Three.js animation works perfectly as the background */}
       <HeroAnimation />
 
@@ -69,13 +72,16 @@ const EnhancedHeroSection = () => {
           className="flex flex-col sm:flex-row justify-center gap-4"
         >
           <motion.a
-            href="#signup"
+            href="https://calendly.com/harshsindhupvt/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="relative inline-flex items-center justify-center px-6 py-3 rounded-lg text-lg font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Book a Demo
           </motion.a>
+
           <motion.a
             href="#features"
             className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-lg font-semibold bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"

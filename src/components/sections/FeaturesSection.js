@@ -42,7 +42,7 @@ const AnimatedCounter = ({ value, duration = 2 }) => {
   );
 };
 
-const FeaturesSection = () => {
+const FeaturesSection = ({ id }) => {
   const [theme, setTheme] = React.useState("dark");
   const ref = React.useRef(null);
   const inView = useInView(ref, {
@@ -200,7 +200,7 @@ const FeaturesSection = () => {
 
   return (
     <section
-      id="why-choose-us"
+      id={id}
       className={`relative min-h-screen overflow-hidden transition-colors duration-500 ${sectionBgClass}`}
       ref={ref}
     >
@@ -502,6 +502,12 @@ const FeaturesSection = () => {
             whileTap={{ scale: 0.95 }}
           >
             <motion.span
+              onClick={() =>
+                window.open(
+                  "https://calendly.com/harshsindhupvt/30min",
+                  "_blank"
+                )
+              }
               className="relative z-10 flex items-center gap-2"
               initial={{ opacity: 1 }}
               whileHover={{ opacity: 0.9 }}

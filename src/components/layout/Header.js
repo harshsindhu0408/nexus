@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { useTheme } from "./ThemeProvider";
@@ -45,12 +45,6 @@ const Header = () => {
             >
               Pricing
             </a>
-            <a
-              href="#"
-              className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Docs
-            </a>
           </div>
 
           {/* Right-side actions */}
@@ -96,30 +90,30 @@ const Header = () => {
               )}
             </button>
 
-            <a
-              href="#contact"
-              className="hidden sm:inline-block px-4 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors"
-            >
-              Sign In
-            </a>
-
             <motion.a
-                href="#contact"
-                className="relative inline-flex items-center px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-500 overflow-hidden group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              href="#contact"
+              className="relative inline-flex items-center px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-500 overflow-hidden group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {/* Animated gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 group-hover:from-indigo-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500" />
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+              {/* Glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-1000 group-hover:duration-200" />
+
+              <a
+                href="https://calendly.com/harshsindhupvt/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10"
               >
-                {/* Animated gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 group-hover:from-indigo-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500" />
-                
-                {/* Shine effect */}
-                <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                
-                {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl blur opacity-30 group-hover:opacity-70 transition duration-1000 group-hover:duration-200" />
-                
-                <span className="relative z-10">Book a Demo</span>
-              </motion.a>
+                Book a Demo
+              </a>
+            </motion.a>
           </div>
         </div>
       </nav>
